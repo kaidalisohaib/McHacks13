@@ -1,44 +1,90 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Logo from "../assets/Logo.svg"
+import { Menu, Camera } from 'lucide-react';
+import Sidebar from './Sidebar';
+import { useFace } from '../context/FaceContext';
 
-const Connections = ({ connections, onOpenMenu, onSelectPerson, onCamera }) => {
+const Connections = () => {
+    const [showMenu, setShowMenu] = useState(false);
+    const navigate = useNavigate();
+    const { knownFaces } = useFace();
+
     return (
-        <div className="h-full p-6 overflow-y-auto bg-gray-50">
-            {/* Header */}
+        <div className="p-5 flex flex-col h-full bg-gray-50">
+            {showMenu && <Sidebar onClose={() => setShowMenu(false)} />}
+
+            {/* Top Bar */}
             <div className="flex items-center justify-between mb-6">
-                <button className="text-2xl" onClick={onOpenMenu}>☰</button>
-                <div className="flex items-center gap-2 text-xl font-black tracking-widest text-gray-900">
-                    <span className="text-primary-red">●</span> REMIN<strong>AIS</strong>
-                </div>
-                <button className="text-2xl" onClick={onCamera}>📷</button>
+                <Menu onClick={() => setShowMenu(true)} className="cursor-pointer" />
+                <img src={Logo} className='w-40' alt="Logo" />
+                <Camera onClick={() => navigate('/camera')} className="cursor-pointer" />
             </div>
 
-            <h2 className="mb-6 text-2xl font-bold">My connection</h2>
-
-            <div className="space-y-4">
-                {connections.length > 0 ? connections.map((c, i) => (
-                    <div key={i} className="flex items-center gap-4 p-4 bg-white border border-gray-100 shadow-sm rounded-2xl">
-                        {c.photo && (
-                            <div className="mt-2 mb-4">
-                                <img 
-                                    src={c.photo} 
-                                    alt="Conversation moment"
-                                    className="w-full max-w-md rounded-lg shadow-md object-cover"
+            <div className="relative flex-1 h-full overflow-hidden">
+                <h2 className='my-5 text-xl font-bold'>Your connections :</h2>
+                <div className="flex flex-col gap-4 h-full pb-20 overflow-y-auto">
+                    {knownFaces.length > 0 ? knownFaces.map((c, i) => (
+                        <div key={i} className="group relative flex items-center gap-6 p-5 bg-white border border-gray-100 shadow-sm hover:shadow-md transition-all rounded-[2rem]">
+                            {/* Image Section */}
+                            <div className="relative shrink-0">
+                                <img
+                                    src={c.faceImage || "https://via.placeholder.com/100"}
+                                    className="object-cover w-24 h-24 rounded-2xl shadow-inner border-2 border-white"
+                                    alt={c.name}
                                 />
+                                <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 border-2 border-white rounded-full"></div>
                             </div>
-                        )}
-                        <div className="flex-1">
-                            <h3 className="mb-1 text-lg font-bold">{c.name}</h3>
-                            <div className="mb-3 text-sm text-gray-500">{c.bio || 'Friend'}</div>
-                            <button className="px-5 py-2 text-xs font-semibold text-white rounded-lg bg-primary-red" onClick={() => onSelectPerson(c)}>
-                                About him
-                            </button>
+
+                            {/* Info Section */}
+                            <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 mb-1">
+                                    <h3 className="text-xl font-black text-gray-900 truncate uppercase tracking-tight">{c.name}</h3>
+                                    {c.contact && (
+                                        <span className="px-2 py-0.5 text-[10px] font-black text-red-600 bg-red-50 rounded-full border border-red-100 uppercase">
+                                            Priority
+                                        </span>
+                                    )}
+                                </div>
+
+                                <p className="mb-2 text-sm font-medium text-gray-500 line-clamp-1 italic">
+                                    {c.bio || 'Friend'}
+                                </p>
+
+                                <div className="flex flex-wrap items-center gap-2">
+                                    {c.contact && (
+                                        <div className="flex items-center gap-1.5 px-3 py-1 text-xs font-bold text-gray-700 bg-gray-50 rounded-full border border-gray-100">
+                                            <span className="text-red-500">📞</span> {c.contact}
+                                        </div>
+                                    )}
+                                    {c.tags && c.tags.slice(0, 3).map((tag, idx) => (
+                                        <span key={idx} className="px-3 py-1 text-[10px] font-bold text-gray-500 bg-white rounded-full border border-gray-100 uppercase tracking-wider">
+                                            #{tag}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Action Section */}
+                            <div className="shrink-0 flex items-center pr-2">
+                                <button
+                                    className="px-8 py-4 text-xs font-black text-white uppercase tracking-widest rounded-2xl bg-[#ff5c5c] hover:bg-red-600 shadow-lg shadow-red-100 hover:shadow-red-200 transition-all active:scale-[0.98] border-b-4 border-red-700"
+                                    onClick={() => navigate(`/history/${c.name}`)}
+                                >
+                                    View About
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                )) : (
-                    <div className="p-8 text-center text-gray-400">
-                        No connections found. Switch to Admin mode to add some!
-                    </div>
-                )}
+                    )) : (
+                        <div className="p-16 text-center">
+                            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <Menu className="text-gray-300 w-10 h-10" />
+                            </div>
+                            <p className="text-lg font-bold text-gray-400">No connections found yet.</p>
+                            <p className="text-sm text-gray-400 mt-1">Faces you detect will appear here.</p>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );

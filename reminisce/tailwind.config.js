@@ -7,11 +7,12 @@ export default {
     theme: {
         extend: {
             colors: {
-                'primary-red': '#ff5c5c',
+                'primary-red': '#ff5c5c', // Warm Red
+                'accent-warm': '#fff7ed', // Orange-50 equivalent for warm background
             },
             fontFamily: {
                 sans: ['Inter', 'sans-serif'],
-            }
+            },
         },
     },
     plugins: [],

@@ -1,56 +1,89 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Menu, Camera } from 'lucide-react';
+import Logo from "../assets/Logo.svg"
+import { useFace } from '../context/FaceContext';
+import Sidebar from './Sidebar';
 
-const Dashboard = ({ user = "Pierre", connections = [], onOpenMenu, onCamera, onSelectPerson }) => {
+const Dashboard = () => {
+    const navigate = useNavigate();
+    const { knownFaces } = useFace();
+    const [showMenu, setShowMenu] = useState(false);
+    const user = "Pierre";
+
     return (
-        <div className="h-full p-6 overflow-y-auto bg-gray-50">
+        <div className="p-5 h-full overflow-y-auto">
+            {showMenu && <Sidebar onClose={() => setShowMenu(false)} />}
+
             {/* Top Bar */}
             <div className="flex items-center justify-between mb-6">
-                <button className="text-2xl" onClick={onOpenMenu}>
-                    ☰
-                </button>
-                <div className="flex items-center gap-2 text-xl font-black tracking-widest text-gray-900">
-                    <span className="text-primary-red">●</span> REMIN<strong>AIS</strong>
-                </div>
-                <button className="text-2xl" onClick={onCamera}>
-                    📷
-                </button>
+                <Menu onClick={() => setShowMenu(true)} className="cursor-pointer" />
+                <img src={Logo} className='w-40' alt="Logo" />
+                <Camera onClick={() => navigate('/camera')} className="cursor-pointer" />
             </div>
 
-            {/* Greeting */}
-            <h1 className="mb-6 text-3xl font-light">Hi, <strong>{user}</strong> !</h1>
+            <h2 className='text-2xl mb-5'>Hi, <span className='font-bold'>{user}</span>!</h2>
 
-            {/* Connections */}
-            <div className="mb-4 text-base font-medium">Your last connections :</div>
-            <div className="flex gap-4 pb-4 overflow-x-auto scrollbar-hide">
-                {connections.length > 0 ? connections.map((c, i) => (
-                    <div key={i} className="min-w-[140px] bg-white rounded-2xl border border-gray-100 p-3 flex flex-col items-center text-center shadow-sm">
-                        {c.photo && (
-                            <div className="mt-2 mb-4">
-                                <img 
-                                    src={c.photo} 
-                                    alt="Conversation moment"
-                                    className="w-full max-w-md rounded-lg shadow-md object-cover"
-                                />
+            {/* Slider */}
+            <div className="relative w-full">
+                <h2 className='my-5 text-xl'>Your last connections :</h2>
+                <div className="overflow-x-scroll scrollbar-none pb-4">
+                    <div className="flex gap-5">
+                        {knownFaces.length > 0 ? knownFaces.map((c, i) => (
+                            <div key={i} className="flex-shrink-0 w-52 bg-white rounded-[2rem] border border-gray-100 p-4 flex flex-col shadow-sm hover:shadow-md transition-all">
+                                <div className="relative mb-3">
+                                    <img
+                                        src={c.faceImage || c.photo || "https://via.placeholder.com/100"}
+                                        className="object-cover w-full h-32 rounded-2xl shadow-inner border-2 border-white"
+                                        alt={c.name}
+                                    />
+                                    {c.contact && (
+                                        <div className="absolute top-2 right-2 w-3 h-3 bg-red-500 border-2 border-white rounded-full"></div>
+                                    )}
+                                </div>
+
+                                <div className="flex-1 text-center">
+                                    <strong className="block text-base font-black text-gray-900 truncate uppercase tracking-tight">{c.name}</strong>
+                                    <span className="text-[10px] font-bold text-gray-400 mb-2 block uppercase tracking-widest">{c.bio || 'Friend'}</span>
+
+                                    {c.contact && (
+                                        <div className="mb-2 text-[10px] font-black text-gray-700 bg-gray-50 inline-flex items-center gap-1 px-3 py-1 rounded-full border border-gray-100">
+                                            <span>📞</span> {c.contact}
+                                        </div>
+                                    )}
+
+                                    {c.tags && (
+                                        <div className="flex flex-wrap justify-center gap-1 mb-3">
+                                            {c.tags.slice(0, 2).map((tag, idx) => (
+                                                <span key={idx} className="px-2 py-0.5 text-[8px] font-black text-gray-500 bg-white rounded-full border border-gray-100 uppercase tracking-wider">
+                                                    #{tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+
+                                <button
+                                    className="w-full py-3 bg-[#ff5c5c] hover:bg-red-600 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-red-100 hover:shadow-red-200 transition-all active:scale-[0.98] border-b-4 border-red-700"
+                                    onClick={() => navigate(`/history/${c.name}`)}
+                                >
+                                    View About
+                                </button>
+                            </div>
+                        )) : (
+                            <div className="w-full p-10 text-center bg-white rounded-[2rem] border border-dashed border-gray-200">
+                                <p className="text-sm font-bold text-gray-300">No connections yet</p>
                             </div>
                         )}
-                        <strong className="block text-sm font-bold text-gray-900">{c.name}</strong>
-                        <span className="text-xs text-gray-500">{c.bio || 'Friend'}</span>
-                        <button
-                            className="w-full py-1.5 mt-2 text-xs font-semibold text-white rounded-lg bg-primary-red"
-                            onClick={() => onSelectPerson(c)}
-                        >
-                            About him
-                        </button>
                     </div>
-                )) : (
-                    <div className="text-gray-400">No connections yet.</div>
-                )}
+                </div>
             </div>
 
-            {/* Meetings Placeholder */}
-            <div className="mt-6 mb-4 text-base font-medium">Your next meetings :</div>
-            <div className="flex items-center justify-center w-full h-40 text-lg font-semibold text-white bg-red-200 rounded-2xl">
-                Coming soon...
+            <div className="relative w-full mt-4">
+                <h2 className='my-5 text-xl'>Your next meetings :</h2>
+                <div className="rounded-2xl w-full h-50 bg-red-100 flex justify-center items-center">
+                    <p className='italic opacity-50 text-red-800'>Coming soon...</p>
+                </div>
             </div>
         </div>
     );

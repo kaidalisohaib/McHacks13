@@ -76,9 +76,14 @@ export const useGemini = () => {
                 properties: {
                     transcript: { type: Type.STRING },
                     emotion: { type: Type.STRING, enum: ["Happy", "Sad", "Angry", "Neutral", "Excited"] },
-                    summary: { type: Type.STRING, description: "A concise 2-3-sentence summary of what they said" }
+                    summary: { type: Type.STRING, description: "A concise 2-3-sentence summary of what they said" },
+                    tags: {
+                        type: Type.ARRAY,
+                        items: { type: Type.STRING },
+                        description: "3-5 short tags/keywords relevant to this person based on the conversation (e.g. 'Fishing', 'Grandson', 'Doctor', 'Love')"
+                    }
                 },
-                required: ["transcript", "emotion", "summary"]
+                required: ["transcript", "emotion", "summary", "tags"]
             };
 
             const apiKey = import.meta.env.VITE_GEMINI_KEY;
@@ -97,6 +102,7 @@ export const useGemini = () => {
                               1. Use the provided transcript as the ground truth.
                               2. Detect the primary emotion.
                               3. Summarize what was said in 2-3 sentences.
+                              4. Generate 3-5 keywords/tags that categorize this person or this specific interaction (topics, relationship, mood).
                             ` }
                     ]
                 }],
