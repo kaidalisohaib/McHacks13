@@ -132,11 +132,15 @@ export const useFaceRecognition = () => {
 
     // Detect Face from Webcam
     const detectFace = async (webcamRef) => {
-        if (!webcamRef.current || knownFaces.length === 0) return null;
+        if (!webcamRef.current) return null;
 
         try {
             const imageSrc = webcamRef.current.getScreenshot();
             if (!imageSrc) return null;
+
+            if (knownFaces.length === 0) {
+                return { status: 'UNKNOWN', imageSrc };
+            }
 
             const img = await faceapi.fetchImage(imageSrc);
 
