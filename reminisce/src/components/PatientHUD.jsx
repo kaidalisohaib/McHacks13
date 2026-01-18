@@ -101,23 +101,23 @@ const PatientHUD = () => {
             )}
 
             {/* Top Bar - Overlay */}
-            <div className="absolute top-0 left-0 w-full z-20 p-5 flex items-center justify-between">
+            <div className="top-0 left-0 w-full z-20 mb-5 flex items-center justify-between">
                 <Menu onClick={() => setShowMenu(true)} className="cursor-pointer" />
                 <img src={Logo} className='w-40 ' alt="Logo" />
                 <Camera onClick={() => { }} className="text-primary-red cursor-pointer" />
             </div>
 
-            <div className="w-full h-full relative">
+            <div className=" h-9/10 relative">
                 <Webcam
                     ref={webcamRef}
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="rounded-2xl absolute inset-0 w-full h-full object-cover"
                     videoConstraints={{ facingMode: "user" }}
                 />
             </div>
 
             <div className="absolute inset-0 flex flex-col justify-end p-8 pointer-events-none z-10">
                 {currentFace && (
-                    <div className="w-full bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-xl mb-20 border border-gray-200">
+                    <div className="absolute bottom-0 self-center w-8/10 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-xl mb-20 border border-gray-200">
                         <div className="flex justify-between items-center mb-2">
                             <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold uppercase rounded-full tracking-wide">
                                 Connection detected
@@ -145,7 +145,7 @@ const PatientHUD = () => {
                 )}
 
                 {listening && (
-                    <div className="absolute top-24 right-5 px-4 py-2 font-bold text-white shadow-lg bg-red-500 rounded-full animate-pulse shadow-red-500/50 flex items-center gap-2">
+                    <div className="absolute right-10 top-24 px-4 py-2 font-bold text-white shadow-lg bg-red-500 rounded-full animate-pulse shadow-red-500/50 flex items-center gap-2">
                         <span className="w-2 h-2 bg-white rounded-full animate-ping"></span>
                         Listening
                     </div>
