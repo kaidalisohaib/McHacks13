@@ -247,6 +247,8 @@ function App() {
           transcript={transcript}
           listening={listening}
           setMode={setMode} // Allows exiting via secret button
+          onOpenMenu={() => setShowMenu(true)}
+          onCamera={() => setMode('CAMERA')}
         />
       )}
 

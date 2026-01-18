@@ -1,33 +1,62 @@
 import React, { useState } from 'react';
+import Logo from '../assets/Logo.svg'
+import illustration from '../assets/Illustration.png'
 
 const LoginScreen = ({ onLogin }) => {
+    const [state, setState] = useState("login")
     return (
-        <div className="flex flex-col justify-center h-full p-8 text-center bg-white">
-            <div className="flex items-center justify-center gap-2 text-xl font-black tracking-widest text-gray-900">
-                <span className="text-primary-red">●</span> REMIN<strong>AIS</strong>
-            </div>
+        <div>
+            {state == "landing" && <div className="h-screen flex flex-col justify-between items-center p-10 text-center">
+                <img src={Logo} className='w-40'/>
 
-            <div className="my-8">
-                <h1 className="text-3xl font-extrabold leading-tight">
-                    Break isolation &<br />
-                    Create connections
-                </h1>
-                {/* Placeholder Image */}
-                <img
-                    src="https://img.freepik.com/free-vector/senior-man-using-laptop-concept-illustration_114360-12845.jpg"
-                    alt="Elderly connection"
-                    className="w-full object-contain my-8 max-h-[250px]"
-                />
-            </div>
+                <div>
+                    <h2 className='text-[32px] inline'>Break isolation and <br/> <span className='font-black'>Create connections !</span></h2>
+                    <img className='max-w-100 w-full' src={illustration}/>
+                </div>
 
-            <div className="w-full space-y-4">
-                <button className="w-full py-4 text-lg font-bold text-white transition-transform bg-primary-red rounded-xl active:scale-95" onClick={onLogin}>
-                    Log In
-                </button>
-                <button className="w-full py-4 text-lg font-bold text-black border border-black rounded-xl">
-                    Sign Up
-                </button>
-            </div>
+                <div className='flex flex-col w-full max-w-100 gap-4'>
+                    <button onClick={()=>setState("login")} className='btn btn-primary h-15 max-w-100'>Log in</button>
+                    <button onClick={()=>setState("signup")} className='btn btn-secondary h-15 max-w-100'>Sign up</button>
+                </div>
+            </div>}
+            {state == "login" && <div className="h-screen flex flex-col justify-between items-center p-10 text-center">
+                <img src={Logo} className='w-40'/>
+
+                <div className='flex flex-col gap-10 w-full'>
+                    <h2 className='text-[30px] font-bold inline'>Log In to <br />your account :</h2>
+                    <form onSubmit={onLogin} action="#" id='login' className='w-full flex flex-col items-center'>
+                        <label htmlFor="username">Username :</label>
+                        <input className='max-w-100 input w-full my-4' type="text" required/>
+                        <label htmlFor="password">Password :</label>
+                        <input className='max-w-100 input w-full my-4' type="password" required/>
+                    </form>
+                </div>
+
+                <div className='flex flex-col w-full max-w-100 gap-4'>
+                    <button type="submit" form="login" className='btn btn-primary h-15 max-w-100'>Log in</button>
+                    <button onClick={()=>setState("landing")} className='btn btn-secondary h-15 max-w-100'>Go back to landing page</button>
+                </div>
+            </div>}
+            {state == "signup" && <div className="h-screen flex flex-col justify-between items-center p-10 text-center">
+                <img src={Logo} className='w-40'/>
+
+                <div className='flex flex-col gap-10 w-full'>
+                    <h2 className='text-[30px] font-bold inline'>Create your <br />account :</h2>
+                    <form onSubmit={()=>setState("login")} action="#" id='signup' className='text-left w-full flex flex-col items-center'>
+                        <label htmlFor="username">Username :</label>
+                        <input className='max-w-100 input w-full my-4' type="text" required/>
+                        <label htmlFor="password">Password :</label>
+                        <input className='max-w-100 input w-full my-4' type="password" required/>
+                        <label htmlFor="email">Email :</label>
+                        <input className='max-w-100 input w-full my-4' type="email" required/>
+                    </form>
+                </div>
+
+                <div className='flex flex-col w-full max-w-100 gap-4'>
+                    <button type="submit" form="signup" className='btn btn-primary h-15 max-w-100'>Sign up</button>
+                    <button onClick={()=>setState("landing")} className='btn btn-secondary h-15 max-w-100'>Go back to landing page</button>
+                </div>
+            </div>}
         </div>
     );
 };

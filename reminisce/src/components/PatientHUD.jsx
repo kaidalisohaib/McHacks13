@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Logo from "../assets/Logo.svg"
+import { Menu, Camera } from 'lucide-react';
 import Webcam from 'react-webcam';
 
 const PatientHUD = ({
@@ -7,22 +9,32 @@ const PatientHUD = ({
     lastEmotion,
     transcript,
     listening,
-    setMode
+    setMode,
+    onOpenMenu,
+    onCamera,
 }) => {
     return (
-        <div className="relative w-full h-full bg-black">
+        <div className="h-screen p-5">
+            {/* Top Bar */}
+            <div className="flex items-center justify-between mb-6">
+                <Menu onClick={onOpenMenu} />
+                <img src={Logo} className='w-40' />
+                <Camera onClick={onCamera} />
+            </div>
+            
             <Webcam
                 ref={webcamRef}
-                className="object-cover w-full h-full"
+                className="object-cover w-full h-full rounded-2xl"
                 videoConstraints={{ facingMode: "user" }}
             />
 
-            <div className="absolute inset-0 flex flex-col justify-between p-8 pointer-events-none">
+            <div className="absolute inset-0 flex flex-col items-center justify-between p-8 pointer-events-none">
                 {currentFace ? (
-                    <div className="max-w-md p-6 border-l-4 rounded-2xl bg-slate-900/80 backdrop-blur-md border-primary-red">
-                        <h2 className="m-0 text-3xl font-bold text-white">{currentFace}</h2>
+                    <div className="w-90 h-30 bg-white border-success shadow-2xl absolute bottom-2 m-auto z-90 rounded-2xl flex flex-col justify-center items-center">
+                        <p className='badge badge-outline'>Connection detected !</p>
+                        <h2 className="text-3xl font-bold text-black">{currentFace}</h2>
                         {lastEmotion && <span className="inline-block mt-2 text-lg font-medium text-blue-400">Mood: {lastEmotion}</span>}
-                        <div className="mt-2 text-sm text-gray-400">
+                        <div className="mt-2 text-sm text-black">
                             Live Transcript: {transcript.substring(transcript.length - 50)}...
                         </div>
                     </div>
@@ -31,7 +43,7 @@ const PatientHUD = ({
                 )}
 
                 {listening && (
-                    <div className="self-end px-4 py-2 font-bold text-white shadow-lg bg-red-500 rounded-full animate-pulse shadow-red-500/50">
+                    <div className="absolute top-25 self-end px-4 py-2 font-bold text-white shadow-lg bg-red-500 rounded-full animate-pulse shadow-red-500/50">
                         ● Listening
                     </div>
                 )}
