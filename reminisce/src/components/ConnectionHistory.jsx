@@ -76,21 +76,21 @@ const ConnectionHistory = () => {
                 {/* Contact Section */}
                 <div className="flex items-center gap-2 relative z-10 mt-2 bg-gray-50 px-4 py-2 rounded-xl border border-gray-200">
                     {isEditing ? (
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center">
                             <input
                                 value={editContact}
                                 onChange={(e) => setEditContact(e.target.value)}
                                 className="bg-white border border-gray-300 rounded-lg px-2 py-1 text-sm outline-none focus:border-red-500 w-40"
                                 placeholder="Phone / Email"
                             />
-                            <button onClick={handleSaveContact} className="text-xs font-bold text-green-600 hover:text-green-700 uppercase">Save</button>
+                            <button onClick={handleSaveContact} className="btn btn-success btn-outline text-xs font-bold ml-2 h-7">Save</button>
                         </div>
                     ) : (
                         <>
                             <span className="text-sm font-bold text-gray-700">
                                 {person.contact ? `📞 ${person.contact}` : "No contact info"}
                             </span>
-                            <button onClick={() => setIsEditing(true)} className="text-xs text-red-500 font-bold underline ml-2">Edit</button>
+                            <button onClick={() => setIsEditing(true)} className="btn btn-error btn-outline text-xs font-bold ml-2 h-7">Edit</button>
                         </>
                     )}
                 </div>
@@ -110,7 +110,7 @@ const ConnectionHistory = () => {
                 {history.length > 0 ? history.map((h, i) => (
                     <div key={i} className="relative group">
                         {/* Dot */}
-                        <div className="absolute top-1 -left-[43px] w-3 h-3 bg-red-500 rounded-full ring-4 ring-red-50"></div>
+                        <div className="absolute top-1 w-3 h-3 bg-red-500 rounded-full ring-4 ring-red-50"></div>
 
                         <div className="inline-block px-3 py-1 mb-2 text-[10px] font-bold tracking-wider text-gray-500 uppercase rounded bg-gray-100">
                             {new Date(h.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} • {new Date(h.date).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
@@ -133,7 +133,7 @@ const ConnectionHistory = () => {
 
                             <button
                                 onClick={() => toggleExpand(i)}
-                                className="w-full py-3 text-sm font-black text-white uppercase tracking-wider rounded-xl bg-[#ff5c5c] hover:bg-red-600 shadow-sm transition-all active:scale-[0.98]"
+                                className="w-full py-3 bg-primary hover:bg-red-600 text-white rounded-2xl text-xs font-bold uppercase tracking-widest shadow-lg shadow-red-100 hover:shadow-red-200 transition-all active:scale-[0.98] border-b-4 border-red-700"
                             >
                                 {expandedItems[i] ? "Hide Details" : "Read Transcript"}
                             </button>

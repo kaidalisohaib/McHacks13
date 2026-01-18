@@ -67,7 +67,7 @@ const Connections = () => {
                             {/* Action Section */}
                             <div className="w-full sm:w-auto shrink-0 flex items-center mt-3 sm:mt-0 sm:pr-2">
                                 <button
-                                    className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-xs font-black text-white uppercase tracking-widest rounded-xl sm:rounded-2xl bg-[#ff5c5c] hover:bg-red-600 shadow-lg shadow-red-100 hover:shadow-red-200 transition-all active:scale-[0.98] border-b-4 border-red-700"
+                                    className="w-full py-3 bg-primary hover:bg-red-600 text-white rounded-2xl text-xs font-bold uppercase tracking-widest shadow-lg shadow-red-100 hover:shadow-red-200 transition-all active:scale-[0.98] border-b-4 border-red-700"
                                     onClick={() => navigate(`/history/${c.name}`)}
                                 >
                                     View About

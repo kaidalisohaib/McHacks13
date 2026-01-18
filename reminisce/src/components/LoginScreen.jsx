@@ -30,9 +30,9 @@ const LoginScreen = () => {
                         <img className='max-w-100 w-full mt-10' src={illustration} alt="Illustration" />
                     </div>
 
-                    <div className='flex flex-col w-full max-w-100 gap-4'>
-                        <button onClick={() => setState("login")} className='btn bg-primary-red text-white hover:bg-red-600 border-none h-15 max-w-100 rounded-xl font-bold text-lg'>Log in</button>
-                        <button onClick={() => setState("signup")} className='btn bg-white text-black border border-black hover:bg-gray-100 h-15 max-w-100 rounded-xl font-bold text-lg'>Sign up</button>
+                    <div className='flex flex-col w-full max-w-100 gap-4 items-center'>
+                        <button onClick={() => setState("login")} className='w-full btn bg-primary text-white hover:bg-red-600 border-none h-15 max-w-100 rounded-xl font-bold text-lg'>Log in</button>
+                        <button onClick={() => setState("signup")} className='h-13 w-9/10 btn bg-white text-black border border-black hover:bg-gray-100 max-w-100 rounded-xl font-bold text-lg'>Sign up</button>
                     </div>
                 </div>
             )}
@@ -46,18 +46,18 @@ const LoginScreen = () => {
                         <form onSubmit={handleLogin} id='login' className='w-full flex flex-col items-center'>
                             <div className="w-full text-left max-w-md">
                                 <label htmlFor="username" className="font-bold ml-1">Username :</label>
-                                <input className='input w-full my-2 bg-gray-200 border-none rounded-xl p-4' type="text" required placeholder="Enter your username" />
+                                <input className='input w-full my-2 bg-gray-200 border-none rounded-xl p-4 h-15' type="text" required placeholder="Enter your username" />
                             </div>
                             <div className="w-full text-left max-w-md mt-4">
                                 <label htmlFor="password" className="font-bold ml-1">Password :</label>
-                                <input className='input w-full my-2 bg-gray-200 border-none rounded-xl p-4' type="password" required placeholder="Enter your password" />
+                                <input className='input w-full my-2 bg-gray-200 border-none rounded-xl p-4 h-15' type="password" required placeholder="Enter your password" />
                             </div>
                         </form>
                     </div>
 
-                    <div className='flex flex-col w-full max-w-100 gap-4'>
-                        <button type="submit" form="login" className='btn bg-primary-red text-white hover:bg-red-600 border-none h-15 max-w-100 rounded-xl font-bold text-lg'>Log in</button>
-                        <button type="button" onClick={() => setState("landing")} className='btn bg-transparent text-gray-500 border-none hover:bg-gray-100 h-15 max-w-100 rounded-xl font-medium'>Go back</button>
+                    <div className='flex flex-col w-full max-w-100 gap-4 items-center'>
+                        <button type="submit" form="login" className='w-full btn bg-primary text-white hover:bg-red-600 border-none h-15 max-w-100 rounded-xl font-bold text-lg'>Log in</button>
+                        <button type="button" onClick={() => setState("landing")} className='btn bg-transparent text-gray-500 border-none hover:bg-gray-100 h-13 w-9/10  max-w-100 rounded-xl font-medium'>Go back</button>
                     </div>
                 </div>
             )}
@@ -71,22 +71,22 @@ const LoginScreen = () => {
                         <form onSubmit={handleSignup} id='signup' className='text-left w-full flex flex-col items-center'>
                             <div className="w-full text-left max-w-md">
                                 <label htmlFor="username" className="font-bold ml-1">Username :</label>
-                                <input className='input w-full my-2 bg-gray-200 border-none rounded-xl p-4' type="text" required />
+                                <input className='input w-full my-2 bg-gray-200 border-none rounded-xl p-4 h-15' type="text" required />
                             </div>
                             <div className="w-full text-left max-w-md mt-2">
                                 <label htmlFor="password" className="font-bold ml-1">Password :</label>
-                                <input className='input w-full my-2 bg-gray-200 border-none rounded-xl p-4' type="password" required />
+                                <input className='input w-full my-2 bg-gray-200 border-none rounded-xl p-4 h-15' type="password" required />
                             </div>
                             <div className="w-full text-left max-w-md mt-2">
                                 <label htmlFor="email" className="font-bold ml-1">Email :</label>
-                                <input className='input w-full my-2 bg-gray-200 border-none rounded-xl p-4' type="email" required />
+                                <input className='input w-full my-2 bg-gray-200 border-none rounded-xl p-4 h-15' type="email" required />
                             </div>
                         </form>
                     </div>
 
-                    <div className='flex flex-col w-full max-w-100 gap-4 mt-4'>
-                        <button type="submit" form="signup" className='btn bg-primary-red text-white hover:bg-red-600 border-none h-15 max-w-100 rounded-xl font-bold text-lg'>Sign up</button>
-                        <button type="button" onClick={() => setState("landing")} className='btn bg-transparent text-gray-500 border-none hover:bg-gray-100 h-15 max-w-100 rounded-xl font-medium'>Go back</button>
+                    <div className='flex flex-col w-full max-w-100 gap-4 mt-4 items-center'>
+                        <button type="submit" form="signup" className='w-full btn bg-primary text-white hover:bg-red-600 border-none h-15 max-w-100 rounded-xl font-bold text-lg'>Sign up</button>
+                        <button type="button" onClick={() => setState("landing")} className='btn bg-transparent text-gray-500 border-none hover:bg-gray-100 h-13 w-9/10 max-w-100 rounded-xl font-medium'>Go back</button>
                     </div>
                 </div>
             )}

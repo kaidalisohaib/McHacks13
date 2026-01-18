@@ -88,7 +88,7 @@ const AdminPanel = () => {
                 <Camera onClick={() => navigate('/camera')} className="cursor-pointer" />
             </div>
 
-            <div className="flex items-center gap-4 mb-6">
+            <div className="flex items-center gap-4 mb-6 self-start">
                 <ArrowLeft onClick={() => navigate('/dashboard')} className="cursor-pointer" />
                 <h1 className="text-2xl font-bold text-gray-800">Admin Panel</h1>
             </div>
@@ -103,24 +103,24 @@ const AdminPanel = () => {
                     value={nameInput}
                     onChange={e => setNameInput(e.target.value)}
                     placeholder="Name"
-                    className="p-3 text-black bg-gray-50 border-2 border-gray-400 rounded-xl outline-none focus:border-red-500 font-bold placeholder-gray-500"
+                    className="input w-full my-2 bg-gray-200 border-none rounded-xl p-4 h-15"
                 />
                 <input
                     value={contactInput}
                     onChange={e => setContactInput(e.target.value)}
                     placeholder="Contact Info (Phone / Email)"
-                    className="p-3 text-black bg-gray-50 border-2 border-gray-400 rounded-xl outline-none focus:border-red-500 font-medium placeholder-gray-500"
+                    className="input w-full my-2 bg-gray-200 border-none rounded-xl p-4 h-15"
                 />
                 <textarea
                     value={bioInput}
                     onChange={e => setBioInput(e.target.value)}
                     placeholder="Initial Context / Bio"
-                    className="p-3 text-black bg-gray-50 border-2 border-gray-400 rounded-xl outline-none focus:border-red-500 min-h-[80px] font-medium placeholder-gray-500"
+                    className="input w-full my-2 bg-gray-200 border-none rounded-xl p-4 h-30"
                 />
                 <button
                     onClick={handleAddFace}
                     disabled={isAdding}
-                    className="px-6 py-4 text-lg font-black text-white uppercase tracking-wider transition-all bg-[#ff5c5c] rounded-xl hover:bg-red-600 shadow-md active:scale-95 disabled:opacity-50 border-2 border-red-700 w-full"
+                    className="w-full py-3 bg-primary hover:bg-red-600 text-white rounded-2xl font-bold uppercase tracking-widest shadow-lg shadow-red-100 hover:shadow-red-200 transition-all active:scale-[0.98] border-b-4 border-red-700"
                 >
                     {isAdding ? "Saving..." : "ADD NEW FACE"}
                 </button>
@@ -152,7 +152,7 @@ const AdminPanel = () => {
 
             {/* Reminder Settings */}
             <div className="flex flex-col gap-4 mb-8 w-full max-w-md mx-auto p-4 bg-white rounded-2xl shadow-sm border border-gray-200">
-                <h3 className="text-lg font-bold text-gray-900 border-b pb-2">Patient Reminders</h3>
+                <h3 className="text-xl font-bold mb-4 self-center">Patient Reminders</h3>
 
                 <div className="flex flex-col gap-1">
                     <div className="flex justify-between">
@@ -165,7 +165,10 @@ const AdminPanel = () => {
                         max="10"
                         value={reminderFrequency}
                         onChange={(e) => setReminderFrequency(parseInt(e.target.value))}
-                        className="w-full accent-red-500 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                        className="w-full accent-primary h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                        style={{
+                            background: `linear-gradient(to right, #EF4444 0%, #EF4444 ${reminderFrequency * 10}%, #E5E7EB ${reminderFrequency * 10}%, #E5E7EB 100%)`
+                        }}
                     />
                     <span className="text-xs text-gray-500">Set to 0 to disable reminders.</span>
                 </div>
@@ -196,15 +199,15 @@ const AdminPanel = () => {
 
                 <button
                     onClick={() => triggerNotification()}
-                    className="mt-2 w-full py-2 bg-gray-100 text-gray-600 font-bold rounded-lg hover:bg-gray-200 transition-colors border border-gray-300"
+                    className="w-full py-3 bg-secondary hover:bg-zinc-300 text-black rounded-2xl font-bold uppercase tracking-widest shadow-lg shadow-zinc-300 hover:shadow-zinc-200 transition-all active:scale-[0.98] border-b-4 border-zinc-400"
                 >
-                    🔔 Test Notification
+                    Test Notification
                 </button>
             </div>
 
             {/* Relaxation & Emergency Settings */}
-            <div className="mb-8 p-4 bg-purple-50 rounded-2xl border border-purple-100">
-                <h3 className="font-black text-gray-700 mb-3">🎵 Relaxation & Emergency</h3>
+            <div className="flex flex-col gap-4 mb-8 w-full max-w-md mx-auto p-4 bg-white rounded-2xl shadow-sm border border-gray-200">
+                <h3 className="text-xl font-bold mb-4 self-center">Relaxation & Emergency</h3>
 
                 <div className="mb-4">
                     <label className="block font-bold text-gray-700 text-sm mb-2">Childhood Photo</label>
@@ -219,7 +222,7 @@ const AdminPanel = () => {
                                 reader.readAsDataURL(file);
                             }
                         }}
-                        className="w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-purple-500 file:text-white file:font-bold hover:file:bg-purple-600"
+                        className="w-full text-sm file:mr-4 file:btn file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-secondary file:text-black file:font-bold "
                     />
                     {childhoodPhoto && (
                         <div className="mt-2 relative">
@@ -245,11 +248,11 @@ const AdminPanel = () => {
                                 reader.readAsDataURL(file);
                             }
                         }}
-                        className="w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-purple-500 file:text-white file:font-bold hover:file:bg-purple-600"
+                        className="w-full text-sm file:mr-4 file:btn file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-secondary file:text-black file:font-bold "
                     />
                     {relaxingMusicUrl && (
                         <div className="mt-2 flex items-center gap-2 p-2 bg-white rounded-lg border border-purple-100">
-                            <span className="text-xs font-bold text-purple-700">🎵 Audio Uploaded</span>
+                            <span className="text-xs font-bold text-primary">🎵 Audio Uploaded</span>
                             <button
                                 onClick={() => setRelaxingMusicUrl('')}
                                 className="ml-auto w-5 h-5 bg-red-500 text-white rounded-full text-xs"
@@ -273,8 +276,8 @@ const AdminPanel = () => {
             </div>
 
             {/* API Configuration */}
-            <div className="mb-8 p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                <h3 className="font-black text-gray-700 mb-3">🔑 API Configuration</h3>
+            <div className="flex flex-col gap-4 mb-8 w-full max-w-md mx-auto p-4 bg-white rounded-2xl shadow-sm border border-gray-200">
+                <h3 className="text-xl font-bold mb-4 self-center">API Configuration</h3>
 
                 <div className="mb-4">
                     <label className="block font-bold text-gray-700 text-sm mb-2">Gemini API Key</label>
@@ -314,8 +317,8 @@ const AdminPanel = () => {
                 </p>
             </div>
 
-            <h2 className="text-xl font-bold mb-4">Database ({knownFaces.length})</h2>
-            <div className="grid gap-4">
+            <h2 className="text-xl font-bold mb-4 self-center">Database ({knownFaces.length})</h2>
+            <div className="flex flex-col gap-4 mb-8 w-full max-w-md mx-auto p-4 bg-white rounded-2xl shadow-sm border border-gray-200">
                 {knownFaces.map((face, i) => (
                     <div key={i} className="p-4 bg-white border border-gray-200 shadow-sm rounded-xl relative group">
                         <button

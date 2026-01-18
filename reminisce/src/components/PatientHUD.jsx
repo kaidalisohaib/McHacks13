@@ -40,7 +40,7 @@ const PatientHUD = () => {
     }, [setIsCameraActive]);
 
     return (
-        <div className="h-full relative bg-black">
+        <div className="h-full relative p-5 overflow-y-auto">
             {showMenu && <Sidebar onClose={() => setShowMenu(false)} />}
 
             {/* Consent Modal Overlay */}
@@ -102,8 +102,8 @@ const PatientHUD = () => {
 
             {/* Top Bar - Overlay */}
             <div className="absolute top-0 left-0 w-full z-20 p-5 flex items-center justify-between">
-                <Menu onClick={() => setShowMenu(true)} className="text-white cursor-pointer" />
-                <img src={Logo} className='w-40 brightness-0 invert' alt="Logo" />
+                <Menu onClick={() => setShowMenu(true)} className="cursor-pointer" />
+                <img src={Logo} className='w-40 ' alt="Logo" />
                 <Camera onClick={() => { }} className="text-primary-red cursor-pointer" />
             </div>
 
