@@ -86,6 +86,7 @@ const Connections = () => {
                     )}
                 </div>
             </div>
+
         </div>
     );
 };
