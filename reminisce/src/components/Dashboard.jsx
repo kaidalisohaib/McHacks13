@@ -24,11 +24,15 @@ const Dashboard = ({ user = "Pierre", connections = [], onOpenMenu, onCamera, on
             <div className="flex gap-4 pb-4 overflow-x-auto scrollbar-hide">
                 {connections.length > 0 ? connections.map((c, i) => (
                     <div key={i} className="min-w-[140px] bg-white rounded-2xl border border-gray-100 p-3 flex flex-col items-center text-center shadow-sm">
-                        <img
-                            src={c.faceImage || "https://via.placeholder.com/100"}
-                            className="object-cover w-full h-24 mb-2 rounded-lg"
-                            alt={c.name}
-                        />
+                        {c.photo && (
+                            <div className="mt-2 mb-4">
+                                <img 
+                                    src={c.photo} 
+                                    alt="Conversation moment"
+                                    className="w-full max-w-md rounded-lg shadow-md object-cover"
+                                />
+                            </div>
+                        )}
                         <strong className="block text-sm font-bold text-gray-900">{c.name}</strong>
                         <span className="text-xs text-gray-500">{c.bio || 'Friend'}</span>
                         <button

@@ -57,8 +57,23 @@ export const useFaceRecognition = () => {
             const img = await faceapi.fetchImage(imageSrc);
             const detection = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
 
-            if (detection) {
+             if (detection) {
+                const box = detection.detection.box;
+
+                // Create a new canvas for the cropped face
+                const canvas = document.createElement('canvas');
+                canvas.width = box.width;
+                canvas.height = box.height;
+                const ctx = canvas.getContext('2d');
+                
+                // Crop the original image to the detected face area
+                ctx.drawImage(img, box.x, box.y, box.width, box.height, 0, 0, box.width, box.height);
+                
+                // Get the cropped face image
+                const facePhoto = canvas.toDataURL('image/jpeg');
+
                 const newFace = {
+                    photo: imageSrc,
                     name: nameInput,
                     bio: bioInput,
                     history: [{

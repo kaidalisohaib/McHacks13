@@ -17,11 +17,15 @@ const Connections = ({ connections, onOpenMenu, onSelectPerson, onCamera }) => {
             <div className="space-y-4">
                 {connections.length > 0 ? connections.map((c, i) => (
                     <div key={i} className="flex items-center gap-4 p-4 bg-white border border-gray-100 shadow-sm rounded-2xl">
-                        <img
-                            src={c.faceImage || "https://via.placeholder.com/100"}
-                            className="object-cover w-20 h-20 rounded-lg"
-                            alt={c.name}
-                        />
+                        {c.photo && (
+                            <div className="mt-2 mb-4">
+                                <img 
+                                    src={c.photo} 
+                                    alt="Conversation moment"
+                                    className="w-full max-w-md rounded-lg shadow-md object-cover"
+                                />
+                            </div>
+                        )}
                         <div className="flex-1">
                             <h3 className="mb-1 text-lg font-bold">{c.name}</h3>
                             <div className="mb-3 text-sm text-gray-500">{c.bio || 'Friend'}</div>

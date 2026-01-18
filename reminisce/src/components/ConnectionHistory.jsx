@@ -22,6 +22,19 @@ const ConnectionHistory = ({ person, onOpenMenu, onBack, onCamera }) => {
                 <h2 className="text-2xl font-bold">Conversation history</h2>
             </div>
 
+            {/* Profile Photo */}
+            {person.photo && (
+                <div className="mb-8">
+                    <img 
+                        src={person.photo} 
+                        alt={`${person.name}'s profile`}
+                        className="w-32 h-32 rounded-full object-cover shadow-lg mx-auto"
+                    />
+                    <h3 className="text-center mt-4 text-xl font-bold">{person.name}</h3>
+                    <p className="text-center text-gray-500 text-sm">{person.bio}</p>
+                </div>
+            )}
+
             <div className="relative pl-8 ml-3 border-l-2 border-black">
                 {history.length > 0 ? history.map((h, i) => (
                     <div key={i} className="mb-8 relative">
@@ -31,14 +44,28 @@ const ConnectionHistory = ({ person, onOpenMenu, onBack, onCamera }) => {
                         <div className="inline-block px-3 py-1 mb-2 text-xs font-medium text-gray-500 rounded bg-gray-200">
                             {new Date(h.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                         </div>
-                        <div className="mt-1">
-                            <h3 className="mb-2 text-lg font-bold">Connection with {person.name.split(' ')[0]}</h3>
-                            <p className="mb-4 text-sm leading-relaxed text-gray-600">
-                                {h.summary}
-                            </p>
-                            <button className="px-4 py-2 text-sm font-semibold text-white rounded-lg bg-primary-red">
-                                More details
-                            </button>
+                        
+                        <div className="mt-1 flex gap-4 items-start">
+                            <div className="flex-1">
+                                <h3 className="mb-2 text-lg font-bold">Connection with {person.name}</h3>
+                                <p className="mb-4 text-sm leading-relaxed text-gray-600">
+                                    {h.summary}
+                                </p>
+                                <button className="px-4 py-2 text-sm font-semibold text-white rounded-lg bg-primary-red">
+                                    More details
+                                </button>
+                            </div>
+                            
+                            {/* Photo Display */}
+                            {h.photo && (
+                                <div className="flex-shrink-0">
+                                    <img 
+                                        src={h.photo} 
+                                        alt="Conversation moment"
+                                        className="w-24 h-24 rounded-lg shadow-md object-cover"
+                                    />
+                                </div>
+                            )}
                         </div>
                     </div>
                 )) : (
